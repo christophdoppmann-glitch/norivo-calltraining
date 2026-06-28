@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
 app.use(express.json());
 app.use((req,res,next)=>{
   res.header('Access-Control-Allow-Origin','*');
   res.header('Access-Control-Allow-Headers','Content-Type');
   if(req.method==='OPTIONS')return res.sendStatus(200);
   next();
+});
+app.get('/',(req,res)=>{
+  res.sendFile(__dirname+'/index.html');
 });
 app.post('/api',async(req,res)=>{
   try{
@@ -18,4 +22,4 @@ app.post('/api',async(req,res)=>{
     res.json(data);
   }catch(e){res.status(500).json({error:e.message});}
 });
-app.listen(process.env.PORT||10000);
+app.listen(process.env.PORT||10000,()=>console.log('Live!'));
