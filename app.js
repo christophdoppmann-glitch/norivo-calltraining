@@ -1,6 +1,6 @@
 const express = require('express');
+const path = require('path');
 const app = express();
-const fs = require('fs');
 app.use(express.json());
 app.use((req,res,next)=>{
   res.header('Access-Control-Allow-Origin','*');
@@ -9,7 +9,7 @@ app.use((req,res,next)=>{
   next();
 });
 app.get('/',(req,res)=>{
-  res.sendFile(__dirname+'/index.html');
+  res.sendFile(path.join(__dirname,'index.html'));
 });
 app.post('/api',async(req,res)=>{
   try{
